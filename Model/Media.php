@@ -13,7 +13,7 @@ namespace Sonata\MediaBundle\Model;
 
 use Imagine\Image\Box;
 use Sonata\ClassificationBundle\Model\CategoryInterface;
-use Symfony\Component\Validator\ExecutionContextInterface;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 abstract class Media implements MediaInterface
 {
@@ -615,7 +615,7 @@ abstract class Media implements MediaInterface
     public function isStatusErroneous(ExecutionContextInterface $context)
     {
         if ($this->getBinaryContent() && $this->getProviderStatus() == self::STATUS_ERROR) {
-            $context->addViolationAt('binaryContent', 'invalid', array(), null);
+            $context->buildViolation('invalid')->atPath('binaryContent')->addViolation();
         }
     }
 
